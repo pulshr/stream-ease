@@ -1,0 +1,13 @@
+{
+  "name": "stream-ease",
+  "version": "1.0.0",
+  "description": "This is an OTT platform prototype, which is built as part of Scaler Neovarsity: Master of Science in Computer Science Degree program.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Pulkit Shrivastava",
+  "license": "ISC"
+}
