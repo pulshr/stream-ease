@@ -17,6 +17,18 @@ app.get("/api/videos", (req, res) => {
   res.json(videos);
 });
 
+// Route to get video by id
+app.get("/api/videos/:id", (req, res) => {
+  const videoId = parseInt(req.params.id);
+  const video = videos.find((v) => v.id === videoId);
+
+  if (video) {
+    res.json(video);
+  } else {
+    res.status(404).json({ message: "Video not found" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Backend API is running on http://localhost:${PORT}`);
 });

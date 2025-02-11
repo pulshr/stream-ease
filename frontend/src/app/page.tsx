@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 type Video = {
   id: number;
@@ -22,16 +23,14 @@ export default function Home() {
     <div>
       <h1>Welcome to StreamEase</h1>
       <ul>
-        {videos.length > 0 ? (
-          videos.map((video) => (
-            <li key={video.id}>
+        {videos.map((video) => (
+          <li key={video.id}>
+            <Link href={`/videos/${video.id}`}>
               <h2>{video.title}</h2>
-              <p>{video.description}</p>
-            </li>
-          ))
-        ) : (
-          <p>Loading videos...</p>
-        )}
+            </Link>
+            <p>{video.description}</p>
+          </li>
+        ))}
       </ul>
     </div>
   );
