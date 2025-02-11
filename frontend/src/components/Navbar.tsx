@@ -6,11 +6,11 @@ export default function Navbar() {
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-white text-2xl font-bold">StreamEase</h1>
         <div className="space-x-6">
-          <Link href="/">
-            <a className="text-white hover:text-gray-300">Home</a>
+          <Link href="/" className="text-white hover:text-gray-300">
+            Home
           </Link>
-          <Link href="/about">
-            <a className="text-white hover:text-gray-300">About</a>
+          <Link href="/about" className="text-white hover:text-gray-300">
+            About
           </Link>
         </div>
       </div>
