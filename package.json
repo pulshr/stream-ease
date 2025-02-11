@@ -1,13 +1,19 @@
 {
   "name": "stream-ease",
   "version": "1.0.0",
-  "description": "This is an OTT platform prototype, which is built as part of Scaler Neovarsity: Master of Science in Computer Science Degree program.",
+  "description": "This is an OTT platform prototype",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "concurrently \"npm run dev --prefix frontend\" \"npm run server --prefix backend\"",
+    "dev": "npm run dev --prefix frontend",
+    "server": "nodemon backend/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Pulkit Shrivastava",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9"
+  }
 }
