@@ -4,7 +4,14 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
+  --primary: #0070f3;
+}
+
+.dark {
+  --background: #18181b;
+  --foreground: #f5f5f5;
+  --primary: #1e90ff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,7 +22,9 @@
 }
 
 body {
+  background-color: var(--background);
   color: var(--foreground);
-  background: var(--background);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+  min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
 }

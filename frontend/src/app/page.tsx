@@ -19,17 +19,24 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen p-8 bg-background text-foreground transition-colors duration-300">
       <h1 className="text-4xl font-bold text-center mb-6">
         Welcome to StreamEase
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {videos.map((video) => (
-          <div key={video.id} className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-2xl font-semibold">{video.title}</h2>
-            <p className="text-gray-600">{video.description}</p>
+          <div
+            key={video.id}
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-colors duration-300"
+          >
+            <h2 className="text-2xl font-semibold dark:text-gray-100">
+              {video.title}
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300">
+              {video.description}
+            </p>
             <Link href={`/videos/${video.id}`}>
-              <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+              <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all">
                 View Details
               </button>
             </Link>

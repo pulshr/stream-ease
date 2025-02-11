@@ -45,19 +45,23 @@ export default function VideoDetail({
 
   if (!video) {
     return (
-      <p className="text-gray-500 text-center mt-10">
+      <p className="text-gray-500 dark:text-gray-400 text-center mt-10">
         Loading video details...
       </p>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold mb-4">{video.title}</h1>
-        <p className="text-gray-700 text-lg">{video.description}</p>
+    <div className="min-h-screen p-8 bg-background text-foreground transition-colors duration-300">
+      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-colors duration-300">
+        <h1 className="text-3xl font-bold mb-4 dark:text-gray-100">
+          {video.title}
+        </h1>
+        <p className="text-gray-700 dark:text-gray-300 text-lg">
+          {video.description}
+        </p>
         <button
-          className="mt-6 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          className="mt-6 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all"
           onClick={() => window.history.back()}
         >
           Back to Home
