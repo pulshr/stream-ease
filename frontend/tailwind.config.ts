@@ -12,6 +12,14 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      boxShadow: {
+        card: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        button: "0 2px 4px rgba(0, 0, 0, 0.1)",
+      },
+      spacing: {
+        "128": "32rem",
+        "144": "36rem",
+      },
     },
   },
   plugins: [],

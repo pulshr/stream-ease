@@ -40,17 +40,29 @@ export default function VideoDetail({
   }, [id]);
 
   if (error) {
-    return <p style={{ color: "red" }}>{error}</p>;
+    return <p className="text-red-500 text-center mt-10">{error}</p>;
   }
 
   if (!video) {
-    return <p>Loading video details...</p>;
+    return (
+      <p className="text-gray-500 text-center mt-10">
+        Loading video details...
+      </p>
+    );
   }
 
   return (
-    <div>
-      <h1>{video.title}</h1>
-      <p>{video.description}</p>
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 className="text-3xl font-bold mb-4">{video.title}</h1>
+        <p className="text-gray-700 text-lg">{video.description}</p>
+        <button
+          className="mt-6 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          onClick={() => window.history.back()}
+        >
+          Back to Home
+        </button>
+      </div>
     </div>
   );
 }
