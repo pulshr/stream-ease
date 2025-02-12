@@ -1,17 +1,35 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const authRoutes = require("./auth"); // Import authentication routes
+
 const app = express();
 const PORT = 5000;
 
 app.use(cors()); // Enable CORS for all routes
-app.use(express.json()); // Parse incoming JSON requests
+
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 // Sample video data (this would be replaced by a real database in production)
 const videos = [
-  { id: 1, title: "The Matrix", description: "Sci-fi action movie" },
-  { id: 2, title: "Inception", description: "Dream within a dream" },
-  { id: 3, title: "Interstellar", description: "Space exploration adventure" },
+  {
+    id: 1,
+    title: "The Matrix",
+    description: "Sci-fi action movie",
+    thumbnail: "/images/matrix_poster.jpg",
+  },
+  {
+    id: 2,
+    title: "Inception",
+    description: "Dream within a dream",
+    thumbnail: "/images/inception_poster.jpg",
+  },
+  {
+    id: 3,
+    title: "Interstellar",
+    description: "Space exploration adventure",
+    thumbnail: "/images/interstellar_poster.jpg",
+  },
 ];
 
 // Video routes

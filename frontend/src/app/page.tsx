@@ -1,11 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 type Video = {
   id: number;
   title: string;
   description: string;
+  thumbnail?: string; // Optional property for thumbnail URL
 };
 
 export default function Home() {
@@ -29,6 +31,15 @@ export default function Home() {
             key={video.id}
             className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-colors duration-300"
           >
+            <Image
+              src={`http://localhost:5000${
+                video.thumbnail || "/no-image-icon.png"
+              }`} // Thumbnail or fallback image
+              alt={video.title}
+              width={500} // Specify width and height for optimization
+              height={300} // Adjust height as per your layout
+              className="w-full h-40 object-cover rounded-md mb-4"
+            />
             <h2 className="text-2xl font-semibold dark:text-gray-100">
               {video.title}
             </h2>
