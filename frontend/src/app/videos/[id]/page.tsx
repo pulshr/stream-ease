@@ -61,7 +61,7 @@ export default function VideoDetail({
           {video.description}
         </p>
         <button
-          className="mt-6 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all"
+          className="mt-6 px-6 py-2 bg-blue-600 text-white rounded transition-transform duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg"
           onClick={() => window.history.back()}
         >
           Back to Home

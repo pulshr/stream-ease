@@ -36,7 +36,7 @@ export default function Home() {
               {video.description}
             </p>
             <Link href={`/videos/${video.id}`}>
-              <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all">
+              <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded transition-transform duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg">
                 View Details
               </button>
             </Link>

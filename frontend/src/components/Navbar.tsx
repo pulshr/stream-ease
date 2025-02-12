@@ -1,8 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
+  const router = useRouter();
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
@@ -12,6 +14,11 @@ export default function Navbar() {
       document.documentElement.classList.add(storedTheme);
     }
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -42,6 +49,12 @@ export default function Navbar() {
           </div>
         </label>
       </div>
+      <button
+        onClick={handleLogout}
+        className="text-white bg-red-600 px-4 py-2 rounded hover:bg-red-700"
+      >
+        Logout
+      </button>
     </nav>
   );
 }
