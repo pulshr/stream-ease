@@ -3,21 +3,21 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-type Video = {
-  id: number;
+type Movie = {
+  _id: string;
   title: string;
   description: string;
-  thumbnail?: string; // Optional property for thumbnail URL
+  thumbnail: string;
 };
 
 export default function Home() {
-  const [videos, setVideos] = useState<Video[]>([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/videos")
+    fetch("http://localhost:5000/api/movies")
       .then((response) => response.json())
-      .then((data) => setVideos(data))
-      .catch((error) => console.error("Error fetching videos:", error));
+      .then((data) => setMovies(data))
+      .catch((error) => console.error("Error fetching movies:", error));
   }, []);
 
   return (
@@ -26,28 +26,26 @@ export default function Home() {
         Welcome to StreamEase
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {videos.map((video) => (
+        {movies.map((movie) => (
           <div
-            key={video.id}
+            key={movie._id}
             className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-colors duration-300"
           >
             <Image
-              src={`http://localhost:5000${
-                video.thumbnail || "/no-image-icon.png"
-              }`} // Thumbnail or fallback image
-              alt={video.title}
-              width={500} // Specify width and height for optimization
-              height={300} // Adjust height as per your layout
-              className="w-full h-40 object-cover rounded-md mb-4"
+              src={movie.thumbnail}
+              alt={movie.title}
+              width={300}
+              height={200}
+              className="rounded-md"
             />
             <h2 className="text-2xl font-semibold dark:text-gray-100">
-              {video.title}
+              {movie.title}
             </h2>
             <p className="text-gray-600 dark:text-gray-300">
-              {video.description}
+              {movie.description}
             </p>
-            <Link href={`/videos/${video.id}`}>
-              <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded transition-transform duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg">
+            <Link href={`/movies/${movie._id}`}>
+              <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                 View Details
               </button>
             </Link>

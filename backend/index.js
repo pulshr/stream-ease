@@ -4,7 +4,7 @@ const cors = require("cors");
 const path = require("path");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const authRoutes = require("./auth");
+const Movie = require("./models/Movie");
 
 const app = express();
 const PORT = 5000;
@@ -13,12 +13,36 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 app.use(cors());
 app.use(express.json());
+app.use("/images", express.static(path.join(__dirname, "images")));
 
-// ✅ Connect to MongoDB (Only once)
+// ✅ Connect to MongoDB
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("✅ Connected to MongoDB Atlas"))
+  .then(() => console.log("✅ Connected to MongoDB"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
+
+// ✅ Get all movies
+app.get("/api/movies", async (req, res) => {
+  try {
+    const movies = await Movie.find();
+    res.json(movies);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching movies" });
+  }
+});
+
+// ✅ Get a single movie by ID
+app.get("/api/movies/:id", async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+    if (!movie) {
+      return res.status(404).json({ message: "Movie not found" });
+    }
+    res.json(movie);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching movie" });
+  }
+});
 
 // ✅ Middleware to verify Admin
 const verifyAdmin = (req, res, next) => {
@@ -35,56 +59,23 @@ const verifyAdmin = (req, res, next) => {
   });
 };
 
-// ✅ Video Data (Temporary, replace with DB)
-const videos = [
-  {
-    id: 1,
-    title: "The Matrix",
-    description: "Sci-fi action",
-    thumbnail: "/images/matrix.jpg",
-  },
-  {
-    id: 2,
-    title: "Inception",
-    description: "Dream within a dream",
-    thumbnail: "/images/inception.jpg",
-  },
-  {
-    id: 3,
-    title: "Interstellar",
-    description: "Space exploration",
-    thumbnail: "/images/interstellar.jpg",
-  },
-];
+// ✅ Add a new movie (Admin Only)
+app.post("/api/movies", verifyAdmin, async (req, res) => {
+  const { title, description, thumbnail } = req.body;
 
-// ✅ Serve Static Images
-app.use("/images", express.static(path.join(__dirname, "images")));
+  if (!title || !description || !thumbnail) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
 
-// ✅ Authentication Routes
-app.use("/api/auth", authRoutes);
-
-// ✅ Video Routes
-app.get("/api/videos", (req, res) => {
-  res.json(videos);
-});
-
-app.get("/api/videos/:id", (req, res) => {
-  const videoId = parseInt(req.params.id);
-  const video = videos.find((v) => v.id === videoId);
-
-  if (video) {
-    res.json(video);
-  } else {
-    res.status(404).json({ message: "Video not found" });
+  try {
+    const newMovie = new Movie({ title, description, thumbnail });
+    await newMovie.save();
+    res.status(201).json({ message: "Movie added successfully!" });
+  } catch (err) {
+    res.status(500).json({ message: "Error adding movie" });
   }
 });
 
-// ✅ Admin-only Video Upload Route (Future Implementation)
-app.post("/api/videos/upload", verifyAdmin, (req, res) => {
-  res.json({ message: "Video uploaded successfully (Feature coming soon!)" });
-});
-
-// ✅ Start the Server
 app.listen(PORT, () => {
   console.log(`🚀 Backend running on http://localhost:${PORT}`);
 });
